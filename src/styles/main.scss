@@ -1,0 +1,339 @@
+/**
+ * Metal-IT-LearnBook - Haupt-Stylesheet
+ * Apokalyptisches Metal-Design mit Tailwind CSS Integration
+ * Autor: Metal-IT-Team
+ * Datum: 27. Juli 2025
+ */
+
+/* Tailwind CSS Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts Import für Metal-Typographie */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
+/**
+ * BASE LAYER - Fundamentale Styles
+ * Grundlegende Definitionen für das apokalyptische Metal-Theme
+ */
+@layer base {
+  /* Globale HTML/Body Konfiguration */
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-metal-dark text-text-primary font-display;
+    @apply bg-metal-gradient;
+    /* Verhindert unerwünschte Textauswahl bei UI-Elementen */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Überschriften im Metal-Stil */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-metal font-bold;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+
+  h1 {
+    @apply text-4xl md:text-6xl;
+    @apply bg-gradient-to-r from-neon-blue to-electric-purple bg-clip-text text-transparent;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl text-text-accent;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl text-text-secondary;
+  }
+}
+
+/**
+ * COMPONENTS LAYER - Wiederverwendbare Komponenten
+ * Spezielle Metal-UI-Komponenten für das LearnBook
+ */
+@layer components {
+  /**
+   * Metal Button Komponente
+   * Basis-Styling für alle Buttons im apokalyptischen Design
+   */
+  .metal-button {
+    @apply relative px-6 py-3 font-metal font-semibold text-text-primary;
+    @apply bg-gradient-to-r from-metal-gray to-metal-light;
+    @apply border border-metal-silver rounded-lg;
+    @apply shadow-metal hover:shadow-neon;
+    @apply transition-all duration-300 ease-in-out;
+    @apply transform hover:scale-105 active:scale-95;
+
+    /* Neon-Glow Effekt bei Hover */
+    &:hover {
+      @apply border-neon-blue;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Aktiver Zustand */
+    &:active {
+      @apply bg-gradient-to-r from-metal-light to-metal-silver;
+    }
+
+    /* Disabled Zustand */
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed;
+      @apply transform-none shadow-none;
+    }
+  }
+
+  /**
+   * Metal Input Field Komponente
+   * Eingabefelder im apokalyptischen Metal-Stil
+   */
+  .metal-input {
+    @apply w-full px-4 py-3 font-display;
+    @apply bg-metal-gray border border-metal-silver rounded-lg;
+    @apply text-text-primary placeholder-text-secondary;
+    @apply shadow-inner-metal focus:shadow-neon;
+    @apply focus:border-neon-blue focus:outline-none;
+    @apply transition-all duration-300;
+
+    /* Focus Glow Effekt */
+    &:focus {
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  /**
+   * Metal Card Komponente
+   * Container für Inhaltsblöcke im Metal-Design
+   */
+  .metal-card {
+    @apply bg-gradient-to-br from-metal-gray to-metal-dark;
+    @apply border border-metal-silver rounded-xl;
+    @apply shadow-apocalyptic;
+    @apply p-6 relative overflow-hidden;
+
+    /* Subtiler Hintergrund-Pattern */
+    &::before {
+      content: "";
+      @apply absolute inset-0 opacity-5;
+      @apply bg-apocalyptic-pattern;
+      pointer-events: none;
+    }
+
+    /* Hover Effekt */
+    &:hover {
+      @apply shadow-neon border-neon-blue;
+      @apply transform transition-all duration-300;
+    }
+  }
+
+  /**
+   * Sidebar Navigation Komponente
+   * Apokalyptische Sidebar mit Metal-Styling
+   */
+  .metal-sidebar {
+    @apply fixed left-0 top-0 h-full w-64;
+    @apply bg-gradient-to-b from-metal-dark to-metal-gray;
+    @apply border-r border-metal-silver shadow-apocalyptic;
+    @apply z-50 overflow-y-auto;
+
+    /* Scrollbar Styling */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply bg-metal-dark;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply bg-metal-silver rounded-full;
+
+      &:hover {
+        @apply bg-neon-blue;
+      }
+    }
+  }
+
+  /**
+   * Navigation Link Komponente
+   * Links in der Sidebar mit Metal-Effekten
+   */
+  .metal-nav-link {
+    @apply block px-4 py-3 font-display font-medium;
+    @apply text-text-secondary hover:text-text-accent;
+    @apply border-l-4 border-transparent;
+    @apply transition-all duration-300;
+
+    &:hover {
+      @apply border-neon-blue bg-metal-light;
+      @apply shadow-lg;
+      text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+    }
+
+    /* Aktiver Link */
+    &.active {
+      @apply border-electric-purple text-text-accent;
+      @apply bg-gradient-to-r from-metal-light to-transparent;
+      box-shadow: inset 4px 0 0 theme("colors.electric-purple");
+    }
+  }
+
+  /**
+   * Login Form Komponente
+   * Spezielles Styling für das Anmeldeformular
+   */
+  .metal-login-form {
+    @apply metal-card max-w-md mx-auto;
+    @apply bg-gradient-to-br from-metal-gray via-metal-dark to-metal-gray;
+
+    /* Titel-Styling */
+    .login-title {
+      @apply text-2xl font-metal font-bold text-center mb-6;
+      @apply bg-gradient-to-r from-neon-blue to-electric-purple bg-clip-text text-transparent;
+      text-shadow: none; /* Override h2 text-shadow */
+    }
+
+    /* Form-Container */
+    .form-group {
+      @apply mb-4;
+
+      label {
+        @apply block text-sm font-display font-medium text-text-secondary mb-2;
+      }
+    }
+
+    /* Submit Button spezielles Styling */
+    .submit-button {
+      @apply metal-button w-full;
+      @apply bg-gradient-to-r from-neon-blue to-electric-purple;
+      @apply hover:from-electric-purple hover:to-neon-blue;
+    }
+  }
+}
+
+/**
+ * UTILITIES LAYER - Utility Classes
+ * Spezielle Utility-Klassen für das Metal-Theme
+ */
+@layer utilities {
+  /* Text Glow Effekte */
+  .text-glow-blue {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+  }
+
+  .text-glow-green {
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+  }
+
+  /* Background Patterns */
+  .bg-circuit-pattern {
+    background-image: radial-gradient(
+        circle at 25% 25%,
+        rgba(0, 212, 255, 0.1) 2px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 75% 75%,
+        rgba(139, 92, 246, 0.1) 2px,
+        transparent 2px
+      );
+    background-size: 40px 40px;
+  }
+
+  /* Animation Classes */
+  .pulse-neon {
+    animation: pulse-neon 2s infinite;
+  }
+
+  /* Metal Shine Effekt */
+  .metal-shine {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -100%;
+      width: 100%;
+      height: calc(100% + 4px);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      animation: shine 3s infinite;
+    }
+  }
+}
+
+/**
+ * ANIMATIONS
+ * Keyframe-Definitionen für Metal-Effekte
+ */
+@keyframes pulse-neon {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/**
+ * RESPONSIVE BREAKPOINTS
+ * Spezielle Anpassungen für verschiedene Bildschirmgrößen
+ */
+@media (max-width: 768px) {
+  .metal-sidebar {
+    @apply w-full h-auto bottom-0 top-auto;
+    @apply border-r-0 border-t border-metal-silver;
+  }
+
+  .metal-nav-link {
+    @apply text-center border-l-0 border-b-4;
+  }
+}
+
+/**
+ * ACCESSIBILITY
+ * Verbesserungen für Barrierefreiheit
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus Indicators für Tastaturnavigation */
+*:focus-visible {
+  outline: 2px solid theme("colors.neon-blue");
+  outline-offset: 2px;
+}

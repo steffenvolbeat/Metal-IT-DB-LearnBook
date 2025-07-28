@@ -1,0 +1,454 @@
+/**
+ * FunctionTest.scss - SCSS Funktionstest Styles
+ * Testet SCSS Features und Integration mit Tailwind
+ * Autor: Metal-IT-Team
+ * Datum: 27. Juli 2025
+ */
+
+// SCSS Variablen für Metal Theme
+$metal-primary: #0f0f0f;
+$metal-secondary: #1a1a1a;
+$metal-accent: #00d4ff;
+$metal-purple: #8b5cf6;
+$metal-green: #10b981;
+
+// SCSS Mixins für wiederverwendbare Styles
+@mixin metal-glow($color: $metal-accent) {
+  box-shadow: 0 0 20px rgba($color, 0.5);
+  text-shadow: 0 0 10px rgba($color, 0.7);
+}
+
+@mixin metal-gradient($from: $metal-secondary, $to: $metal-primary) {
+  background: linear-gradient(135deg, $from 0%, $to 100%);
+}
+
+@mixin responsive-grid($columns: 1) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Keyframes für Animationen
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba($metal-accent, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba($metal-accent, 0.8);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba($metal-purple, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba($metal-purple, 1);
+  }
+}
+
+// Haupt-Container Styling
+.function-test-container {
+  min-height: 100vh;
+  padding: 2rem;
+  @include metal-gradient($metal-primary, $metal-secondary);
+
+  // Header Styling
+  .test-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .test-title {
+      font-family: "Orbitron", monospace;
+      font-size: 3rem;
+      font-weight: 900;
+      @include metal-glow($metal-accent);
+      background: linear-gradient(45deg, $metal-accent, $metal-purple);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .test-subtitle {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+    }
+  }
+
+  // Grid Layout für Test Cards
+  .test-grid {
+    @include responsive-grid(1);
+    margin-bottom: 3rem;
+  }
+
+  // Test Card Basis-Styling
+  .test-card {
+    @include metal-gradient($metal-secondary, darken($metal-secondary, 5%));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    // Hover Effekt
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba($metal-accent, 0.5);
+      @include metal-glow($metal-accent);
+    }
+
+    // Card Titel Styling
+    .card-title {
+      font-family: "Orbitron", monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-align: center;
+
+      &.neon-glow {
+        @include metal-glow($metal-accent);
+        color: $metal-accent;
+      }
+
+      &.scss-glow {
+        @include metal-glow($metal-purple);
+        color: $metal-purple;
+      }
+
+      &.integration-glow {
+        @include metal-glow($metal-green);
+        color: $metal-green;
+      }
+    }
+
+    // Content Bereiche
+    .test-content {
+      h3 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 1rem;
+        border-bottom: 2px solid rgba($metal-accent, 0.3);
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+
+  // Spezifische Test Bereiche
+  .color-test {
+    margin-bottom: 2rem;
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+
+      .color-box {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        span {
+          display: block;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .shadow-test {
+    margin-bottom: 2rem;
+
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+
+      .shadow-box {
+        padding: 1rem;
+        background: $metal-secondary;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-weight: 600;
+        color: white;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .typography-test {
+    margin-bottom: 2rem;
+
+    p {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  // SCSS spezifische Tests
+  .scss-variables {
+    margin-bottom: 2rem;
+
+    .variable-demo {
+      padding: 1rem;
+      background: rgba($metal-accent, 0.1);
+      border-left: 4px solid $metal-accent;
+      border-radius: 0.5rem;
+
+      p {
+        margin-bottom: 0.5rem;
+        color: rgba(255, 255, 255, 0.9);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .animation-test {
+    margin-bottom: 2rem;
+
+    .animated-elements {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .pulse-element {
+        padding: 1rem 1.5rem;
+        background: $metal-secondary;
+        border-radius: 0.5rem;
+        color: $metal-accent;
+        font-weight: 600;
+        animation: pulse-glow 2s infinite;
+      }
+
+      .glow-element {
+        padding: 1rem 1.5rem;
+        background: $metal-secondary;
+        border-radius: 0.5rem;
+        color: $metal-purple;
+        font-weight: 600;
+        animation: glow-pulse 3s infinite;
+      }
+
+      .rotate-element {
+        padding: 1rem 1.5rem;
+        background: $metal-secondary;
+        border-radius: 0.5rem;
+        color: $metal-green;
+        font-weight: 600;
+        animation: rotate-slow 4s linear infinite;
+        transform-origin: center;
+      }
+    }
+  }
+
+  .nested-test {
+    margin-bottom: 2rem;
+
+    .nested-container {
+      .nested-item {
+        padding: 0.8rem 1rem;
+        background: rgba($metal-secondary, 0.7);
+        margin-bottom: 0.5rem;
+        border-radius: 0.3rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba($metal-accent, 0.2);
+          transform: translateX(10px);
+        }
+
+        &.active {
+          background: rgba($metal-accent, 0.3);
+          border-left: 4px solid $metal-accent;
+          color: $metal-accent;
+          font-weight: 600;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Integration Tests
+  .combined-test {
+    margin-bottom: 2rem;
+
+    .combined-elements {
+      .combined-button {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+
+        &.primary {
+          background: linear-gradient(45deg, $metal-accent, $metal-purple);
+          color: white;
+
+          &:hover {
+            transform: translateY(-2px);
+            @include metal-glow($metal-accent);
+          }
+        }
+
+        &.secondary {
+          background: $metal-secondary;
+          color: $metal-accent;
+          border: 1px solid $metal-accent;
+
+          &:hover {
+            background: rgba($metal-accent, 0.1);
+            transform: translateY(-2px);
+          }
+        }
+      }
+
+      .combined-card {
+        @include metal-gradient($metal-secondary, darken($metal-secondary, 3%));
+        padding: 1.5rem;
+        border-radius: 0.8rem;
+        border: 1px solid rgba($metal-accent, 0.3);
+        margin-top: 1rem;
+
+        h4 {
+          color: $metal-accent;
+          margin-bottom: 0.5rem;
+          font-family: "Orbitron", monospace;
+        }
+
+        p {
+          color: rgba(255, 255, 255, 0.8);
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  .responsive-test {
+    .responsive-grid {
+      @include responsive-grid(1);
+
+      .responsive-item {
+        padding: 1rem;
+        background: rgba($metal-green, 0.2);
+        border-radius: 0.5rem;
+        text-align: center;
+        color: $metal-green;
+        font-weight: 600;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba($metal-green, 0.3);
+          transform: scale(1.02);
+        }
+      }
+    }
+  }
+
+  // Footer Styling
+  .test-footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .status-indicator {
+      padding: 1rem 2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+
+      &.success {
+        background: linear-gradient(
+          45deg,
+          $metal-green,
+          lighten($metal-green, 10%)
+        );
+        color: white;
+        @include metal-glow($metal-green);
+      }
+    }
+
+    .test-info {
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+  }
+}
+
+// Responsive Anpassungen
+@media (max-width: 768px) {
+  .function-test-container {
+    padding: 1rem;
+
+    .test-header .test-title {
+      font-size: 2rem;
+    }
+
+    .test-card {
+      padding: 1.5rem;
+    }
+
+    .color-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .shadow-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .animated-elements {
+      flex-direction: column;
+    }
+  }
+}

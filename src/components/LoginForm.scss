@@ -1,0 +1,89 @@
+/**
+ * LoginForm.scss - Styles für das Metal-Login-Formular
+ * Neon-Glow, Metal-Theme, Responsive
+ * Autor: Metal-IT-Team
+ */
+
+.metal-login-form {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 2px solid #4a4a4a;
+  border-radius: 1.2rem;
+  box-shadow: 0 0 32px #00d4ff33, 0 8px 32px #000a;
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.login-title {
+  font-family: "Orbitron", monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00d4ff, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  label {
+    color: #a1a1aa;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+}
+
+.metal-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: #1a1a1a;
+  border: 1.5px solid #4a4a4a;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.metal-input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 12px #00d4ff99;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.9rem 0;
+  font-family: "Orbitron", monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00d4ff, #8b5cf6);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 16px #00d4ff55;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+.submit-button:hover {
+  background: linear-gradient(90deg, #8b5cf6, #00d4ff);
+  box-shadow: 0 0 24px #8b5cf699;
+  transform: scale(1.03);
+}
+
+.error-message {
+  color: #10b981;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  text-shadow: 0 0 8px #10b98199;
+}

@@ -1,0 +1,52 @@
+/**
+ * MainPage.scss - Styles für die Hauptseite
+ * Apokalyptisches Metal-Theme, Neon-Glow und Layout
+ * Autor: Metal-IT-Team
+ */
+
+.mainpage-bg {
+  @apply bg-metal-gradient min-h-screen flex;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-image: url("/backgrounds/metal-main.jpg"),
+    linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2a2a2a 100%);
+  background-size: cover;
+  background-blend-mode: overlay;
+}
+
+.neon-glow {
+  text-shadow: 0 0 20px #00d4ff, 0 0 40px #8b5cf6;
+}
+
+.main-content {
+  width: 100vw;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+// Responsive Anpassungen
+@media (max-width: 768px) {
+  .mainpage-bg {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 900px) {
+  .mainpage-bg {
+    flex-direction: column;
+  }
+  .main-content {
+    max-width: 100vw;
+    padding: 1.2rem 0.5rem;
+  }
+}

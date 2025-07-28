@@ -1,0 +1,48 @@
+/**
+ * BurgerMenu.scss - Styles für das Burger-Menü
+ * Animiertes Metal-Design, Neon-Glow
+ * Autor: Metal-IT-Team
+ */
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 100;
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  border-radius: 50%;
+  box-shadow: 0 0 16px #00d4ff55;
+  transition: background 0.2s;
+}
+
+.burger-menu:focus {
+  outline: 2px solid #00d4ff;
+}
+
+.bar {
+  width: 32px;
+  height: 4px;
+  background: linear-gradient(90deg, #00d4ff, #8b5cf6);
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  box-shadow: 0 0 8px #00d4ff99;
+}
+
+.burger-menu.open .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.burger-menu.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.burger-menu.open .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
