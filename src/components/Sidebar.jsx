@@ -62,12 +62,18 @@ const Sidebar = ({ open, onClose }) => {
                 <a href="#python" className="metal-nav-link">
                   Python
                 </a>
+                <a href="#backend" className="metal-nav-link">
+                  Backend
+                </a>
               </div>
             )}
           </div>
         )}
         <a href="#englisch" className="metal-nav-link">
           Englisch-Nachschlagewerk
+        </a>
+        <a href="#englisch-lcci" className="metal-nav-link">
+          Englisch-LCCI
         </a>
         <a href="#portfolio" className="metal-nav-link">
           Portfolio

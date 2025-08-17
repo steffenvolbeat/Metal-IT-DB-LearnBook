@@ -1,0 +1,635 @@
+/**
+ * Backend.scss - Backend Entwicklung Hauptseite Styling
+ * Metal-Design mit Server-grün und Database-blau Farbschema
+ * Responsive Design mit 3D-Effekten und Animationen
+ * Autor: Metal-IT-Team
+ */
+
+@import "../styles/main.scss";
+
+// === Backend Color Palette ===
+$server-green: #10b981;
+$server-dark: #059669;
+$database-blue: #3b82f6;
+$database-light: #60a5fa;
+$backend-gradient: linear-gradient(135deg, $server-green, $database-blue);
+
+// === Backend Page ===
+.backend-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 15, 15, 0.95) 0%,
+    rgba(16, 185, 129, 0.05) 25%,
+    rgba(59, 130, 246, 0.05) 75%,
+    rgba(15, 15, 15, 0.95) 100%
+  );
+  padding: 2rem 1rem;
+  font-family: "Rajdhani", sans-serif;
+
+  // === Page Header ===
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 3rem 2rem;
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+
+      .page-title {
+        font-family: "Orbitron", monospace;
+        font-size: 3.5rem;
+        font-weight: 900;
+        background: $backend-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: backendTitleShimmer 3s ease-in-out infinite;
+      }
+
+      .page-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // === Book Section ===
+  .book-section {
+    margin-bottom: 4rem;
+    text-align: center;
+
+    .section-header {
+      margin-bottom: 3rem;
+
+      .section-title {
+        font-family: "Orbitron", monospace;
+        font-size: 2.2rem;
+        color: $server-green;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      }
+
+      .section-description {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // === Backend Type Toggle Section ===
+  .backend-toggle-section {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+
+    .toggle-container {
+      display: flex;
+      background: rgba(15, 15, 15, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 0.5rem;
+      backdrop-filter: blur(10px);
+
+      .toggle-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 40px;
+        font-family: "Orbitron", monospace;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        background: transparent;
+
+        .toggle-icon {
+          font-size: 1.3rem;
+        }
+
+        &.nodejs {
+          color: rgba(16, 185, 129, 0.7);
+
+          &:hover {
+            color: $server-green;
+            background: rgba(16, 185, 129, 0.1);
+          }
+
+          &.active {
+            background: linear-gradient(
+              135deg,
+              rgba(16, 185, 129, 0.2),
+              rgba(5, 150, 105, 0.2)
+            );
+            color: $server-green;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+            .toggle-icon {
+              text-shadow: 0 0 10px $server-green;
+            }
+          }
+        }
+
+        &.python {
+          color: rgba(59, 130, 246, 0.7);
+
+          &:hover {
+            color: $database-blue;
+            background: rgba(59, 130, 246, 0.1);
+          }
+
+          &.active {
+            background: linear-gradient(
+              135deg,
+              rgba(59, 130, 246, 0.2),
+              rgba(96, 165, 250, 0.2)
+            );
+            color: $database-blue;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+            .toggle-icon {
+              text-shadow: 0 0 10px $database-blue;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // === QuickStart Section ===
+  .quickstart-section {
+    margin-bottom: 4rem;
+    background: rgba(15, 15, 15, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    animation: slideInFromBottom 0.5s ease-out;
+
+    .section-header {
+      position: relative;
+      margin-bottom: 2rem;
+      text-align: center;
+
+      .section-title {
+        font-family: "Orbitron", monospace;
+        font-size: 2rem;
+        background: $backend-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+
+      .section-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 1.5rem;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+      }
+    }
+
+    .quickstart-examples {
+      display: grid;
+      gap: 2rem;
+
+      .example-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .example-title {
+          font-family: "Orbitron", monospace;
+          font-size: 1.3rem;
+          color: $server-green;
+          margin-bottom: 1rem;
+          text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+      }
+    }
+  }
+
+  // === Topics Section ===
+  .topics-section {
+    margin-bottom: 4rem;
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+
+      .section-title {
+        font-family: "Orbitron", monospace;
+        font-size: 2.2rem;
+        color: $database-blue;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      }
+
+      .section-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      .topic-card {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem;
+        background: rgba(15, 15, 15, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: $backend-gradient;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        &:hover {
+          transform: translateY(-5px);
+          border-color: rgba(255, 255, 255, 0.3);
+          box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+
+          &:before {
+            opacity: 1;
+          }
+
+          .topic-icon {
+            transform: scale(1.2);
+          }
+        }
+
+        &.completed {
+          border-color: rgba(16, 185, 129, 0.6);
+          background: rgba(16, 185, 129, 0.1);
+
+          .topic-icon {
+            filter: brightness(1.2);
+          }
+
+          .completed-indicator {
+            display: block;
+          }
+        }
+
+        .topic-icon {
+          font-size: 2.5rem;
+          transition: transform 0.3s ease;
+          filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .topic-content {
+          flex: 1;
+          position: relative;
+
+          .topic-title {
+            font-family: "Orbitron", monospace;
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+          }
+
+          .difficulty-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            &.beginner {
+              background: rgba(34, 197, 94, 0.2);
+              color: #22c55e;
+              border: 1px solid rgba(34, 197, 94, 0.3);
+            }
+
+            &.intermediate {
+              background: rgba(251, 191, 36, 0.2);
+              color: #fbbf24;
+              border: 1px solid rgba(251, 191, 36, 0.3);
+            }
+
+            &.advanced {
+              background: rgba(239, 68, 68, 0.2);
+              color: #ef4444;
+              border: 1px solid rgba(239, 68, 68, 0.3);
+            }
+          }
+
+          .completed-indicator {
+            display: none;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+            animation: completedBounce 0.5s ease-out;
+          }
+        }
+      }
+    }
+  }
+
+  // === Actions Section ===
+  .actions-section {
+    margin-bottom: 4rem;
+    text-align: center;
+
+    .actions-container {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .action-btn {
+        padding: 1.2rem 2.5rem;
+        border: none;
+        border-radius: 8px;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 200px;
+        justify-content: center;
+
+        &.primary {
+          background: $backend-gradient;
+          color: white;
+
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+          }
+        }
+
+        &.secondary {
+          background: transparent;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          color: white;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+  }
+
+  // === Progress Footer ===
+  .progress-footer {
+    padding: 2rem;
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+
+    .progress-content {
+      max-width: 400px;
+      margin: 0 auto;
+
+      h4 {
+        font-family: "Orbitron", monospace;
+        color: $server-green;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+
+        .progress-fill {
+          height: 100%;
+          background: $backend-gradient;
+          border-radius: 4px;
+          transition: width 0.5s ease;
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+      }
+
+      .progress-text {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  // === Animations ===
+  @keyframes backendTitleShimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes completedBounce {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  // === Responsive Design ===
+  @media (max-width: 768px) {
+    padding: 1rem 0.5rem;
+
+    .page-header {
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+
+      .page-title {
+        font-size: 2.5rem;
+      }
+
+      .page-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .backend-toggle-section .toggle-container {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+
+      .toggle-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .topics-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      .topic-card {
+        padding: 1.5rem;
+      }
+    }
+
+    .actions-container {
+      flex-direction: column;
+      align-items: center;
+
+      .action-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-header .page-title {
+      font-size: 2rem;
+    }
+
+    .quickstart-section {
+      padding: 1.5rem;
+    }
+
+    .topics-grid .topic-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+
+      .topic-icon {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+// === Dark Theme Enhancements ===
+.backend-page {
+  // Scrollbar Styling
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 15, 15, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $backend-gradient;
+    border-radius: 4px;
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        darken($server-green, 10%),
+        darken($database-blue, 10%)
+      );
+    }
+  }
+
+  // Selection Styling
+  ::selection {
+    background: rgba(16, 185, 129, 0.3);
+    color: white;
+  }
+
+  ::-moz-selection {
+    background: rgba(16, 185, 129, 0.3);
+    color: white;
+  }
+}

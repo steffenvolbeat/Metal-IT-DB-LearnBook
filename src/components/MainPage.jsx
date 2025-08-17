@@ -8,17 +8,20 @@ import Sidebar from "./Sidebar";
 import BurgerMenu from "./BurgerMenu";
 import LoginForm from "./LoginForm";
 import HtmlCss from "../pages/HtmlCss";
-import HtmlCssDetail from "../pages/HtmlCssDetail";
 import JsTs from "../pages/JsTs";
 import JsTsDetail from "../pages/JsTsDetail";
 import ReactPage from "../pages/ReactPage";
 import ReactDetail from "../pages/ReactDetail";
 import Python from "../pages/Python";
 import PythonDetail from "../pages/PythonDetail";
+import Backend from "../pages/Backend";
+import BackendDetail from "../pages/BackendDetail";
 import MetalSongsVideos from "../pages/MetalSongsVideos";
+import EnglischLcci from "../pages/EnglischLcci";
 import EnglishReference from "../pages/EnglishReference";
 import Profile from "../pages/Profile";
 import LearnDashboard from "../pages/LearnDashboard";
+import SqlDatabase from "../pages/SqlDatabase";
 import "./MainPage.scss";
 
 const MainPage = () => {
@@ -38,15 +41,18 @@ const MainPage = () => {
 
   let content = null;
   // Spezialfall: ReactDetail und Sprungmarken
-  if (route.startsWith("#react-detail") || [
-    "#grundlagen",
-    "#fortgeschritten",
-    "#state-management",
-    "#api-daten",
-    "#migration",
-    "#community",
-    "#praxis"
-  ].includes(route)) {
+  if (
+    route.startsWith("#react-detail") ||
+    [
+      "#grundlagen",
+      "#fortgeschritten",
+      "#state-management",
+      "#api-daten",
+      "#migration",
+      "#community",
+      "#praxis",
+    ].includes(route)
+  ) {
     content = <ReactDetail />;
     // Smooth scroll zu Sprungmarke, falls vorhanden
     React.useEffect(() => {
@@ -59,9 +65,6 @@ const MainPage = () => {
     switch (route) {
       case "#html-css":
         content = <HtmlCss />;
-        break;
-      case "#html-css-detail":
-        content = <HtmlCssDetail />;
         break;
       case "#js-ts":
         content = <JsTs />;
@@ -78,17 +81,29 @@ const MainPage = () => {
       case "#python-detail":
         content = <PythonDetail />;
         break;
+      case "#backend":
+        content = <Backend />;
+        break;
+      case "#backend-detail":
+        content = <BackendDetail />;
+        break;
       case "#metal-songs":
         content = <MetalSongsVideos />;
         break;
       case "#englisch":
         content = <EnglishReference />;
         break;
+      case "#englisch-lcci":
+        content = <EnglischLcci />;
+        break;
       case "#profil":
         content = <Profile />;
         break;
       case "#dashboard":
         content = <LearnDashboard />;
+        break;
+      case "#sql-database":
+        content = <SqlDatabase />;
         break;
       default:
         content = (
@@ -97,8 +112,8 @@ const MainPage = () => {
               Metal-IT-LearnBook
             </h1>
             <p className="text-xl md:text-2xl font-display text-text-secondary mb-10 text-center max-w-2xl">
-              Die apokalyptische Lernplattform für IT-Technologien – Metal, Neon,
-              Wissen und Power!
+              Die apokalyptische Lernplattform für IT-Technologien – Metal,
+              Neon, Wissen und Power!
             </p>
             {/* Login-Formular */}
             <LoginForm />

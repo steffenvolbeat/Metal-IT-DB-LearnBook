@@ -7,7 +7,14 @@ import React from "react";
 
 const dashboardLinks = [
   { label: "Programmierung", hash: "#programmierung", icon: "💻" },
+  { label: "HTML & CSS", hash: "#html-css", icon: "🎨" },
+  { label: "JavaScript & TypeScript", hash: "#js-ts", icon: "⚡" },
+  { label: "React", hash: "#react", icon: "⚛️" },
+  { label: "Python", hash: "#python", icon: "🐍" },
+  { label: "Backend", hash: "#backend", icon: "🖥️" },
+  { label: "SQL-Datenbank", hash: "#sql-database", icon: "🗄️" },
   { label: "Englisch-Nachschlagewerk", hash: "#englisch", icon: "📚" },
+  { label: "Englisch-LCCI", hash: "#englisch-lcci", icon: "🎓" },
   { label: "Portfolio", hash: "#portfolio", icon: "🗂️" },
   { label: "Projects", hash: "#projects", icon: "🚀" },
   { label: "Metal-IT-Songs & Videos", hash: "#metal-songs", icon: "🎵" },
@@ -42,14 +49,14 @@ const LearnDashboard = () => {
           ></div>
         </div>
         <div className="flex gap-4 flex-wrap justify-center">
-          <span className="badge bg-electric-purple text-white px-4 py-2 rounded-full font-metal shadow-neon">
-            HTML Hero
-          </span>
           <span className="badge bg-neon-blue text-black px-4 py-2 rounded-full font-metal shadow-neon">
             JS Warrior
           </span>
           <span className="badge bg-toxic-green text-black px-4 py-2 rounded-full font-metal shadow-neon">
             Python Pro
+          </span>
+          <span className="badge bg-electric-purple text-white px-4 py-2 rounded-full font-metal shadow-neon">
+            Backend Master
           </span>
         </div>
       </div>

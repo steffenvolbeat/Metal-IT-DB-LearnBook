@@ -1,0 +1,1913 @@
+/**
+ * SqlBook3D.scss - SQL-Datenbank 3D Buch Styles
+ * Metal-Design mit SQL-spezifischen Farben und Animationen
+ * Basiert auf JavaScriptBook3D mit SQL-Farbschema
+ * Autor: Metal-IT-Team
+ */
+
+/* === SQL-Spezifische Farbvariablen === */
+:root {
+  --sql-primary: #2e86ab; /* SQL Blue */
+  --sql-secondary: #a23b72; /* Database Purple */
+  --sql-accent: #f18f01; /* Query Orange */
+  --sql-success: #c73e1d; /* Result Red */
+  --sql-bg: rgba(46, 134, 171, 0.1);
+  --sql-border: rgba(46, 134, 171, 0.3);
+  --sql-hover: rgba(46, 134, 171, 0.2);
+  --sql-glow: 0 0 20px rgba(46, 134, 171, 0.5);
+}
+
+/* === 3D Buch Container === */
+.realistic-book-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f1419 100%);
+  perspective: 2000px;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 20% 50%,
+        var(--sql-bg) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 50%,
+        rgba(162, 59, 114, 0.1) 0%,
+        transparent 50%
+      );
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* === 3D Buch Hauptelement === */
+.realistic-book {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  z-index: 10;
+
+  &.closed {
+    transform: rotateY(0deg) rotateX(-5deg) translateZ(0px);
+
+    &:hover {
+      transform: rotateY(5deg) rotateX(-2deg) translateZ(20px);
+    }
+  }
+
+  &.open {
+    transform: rotateY(-15deg) rotateX(-5deg) translateZ(50px);
+    cursor: default;
+  }
+
+  &.flipping {
+    .page {
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+}
+
+/* === Buch Cover 3D === */
+.book-cover-3d {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+
+  .cover-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2e86ab 0%, #1a5f7a 50%, #0f3449 100%);
+    border: 3px solid var(--sql-border);
+    border-radius: 8px;
+    box-shadow: inset 0 0 50px rgba(46, 134, 171, 0.2), 0 0 30px var(--sql-glow),
+      0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateZ(12px);
+  }
+
+  .book-spine {
+    position: absolute;
+    width: 24px;
+    height: 100%;
+    right: -12px;
+    background: linear-gradient(135deg, #1a5f7a 0%, #0f3449 100%);
+    border: 2px solid var(--sql-border);
+    transform: rotateY(90deg);
+    transform-origin: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spine-text {
+      color: var(--sql-primary);
+      font-size: 14px;
+      font-weight: bold;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      text-shadow: 0 0 10px currentColor;
+    }
+  }
+
+  .cover-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f3449 0%, #1a1a1a 100%);
+    border: 2px solid var(--sql-border);
+    border-radius: 8px;
+    transform: rotateY(180deg) translateZ(12px);
+
+    .back-content {
+      padding: 40px 30px;
+      color: var(--sql-primary);
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+}
+
+/* === Cover Design === */
+.cover-design {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+
+  .metal-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(46, 134, 171, 0.1) 2px,
+      rgba(46, 134, 171, 0.1) 4px
+    );
+    opacity: 0.6;
+  }
+
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 30px;
+
+    .cover-logo {
+      font-size: 80px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 20px var(--sql-primary));
+      animation: sqlPulse 3s ease-in-out infinite;
+    }
+
+    .cover-title {
+      font-family: "Orbitron", monospace;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 10px var(--sql-primary), 0 0 20px var(--sql-primary),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .cover-subtitle {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--sql-primary);
+      text-shadow: 0 0 10px currentColor;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .cover-author {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .cover-badges {
+      display: flex;
+      gap: 15px;
+
+      .sql-badge,
+      .db-badge {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: "Orbitron", monospace;
+        font-size: 12px;
+        font-weight: 700;
+        text-shadow: 0 0 8px currentColor;
+        box-shadow: 0 0 15px currentColor,
+          inset 0 0 10px rgba(255, 255, 255, 0.1);
+        border: 2px solid currentColor;
+      }
+
+      .sql-badge {
+        background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+        color: #ffffff;
+      }
+
+      .db-badge {
+        background: linear-gradient(135deg, var(--sql-secondary), #7a2d5a);
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+/* === SQL Pulse Animation === */
+@keyframes sqlPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px var(--sql-primary));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 30px var(--sql-primary));
+    transform: scale(1.05);
+  }
+}
+
+/* === Buch Seiten 3D === */
+.book-pages-3d {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+
+  .page {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    border: 1px solid rgba(46, 134, 171, 0.2);
+    box-shadow: 0 0 20px rgba(46, 134, 171, 0.1),
+      inset 0 0 50px rgba(255, 255, 255, 0.8);
+    transform-style: preserve-3d;
+
+    &.left-page {
+      left: 0;
+      transform-origin: right center;
+      transform: translateZ(10px);
+      border-radius: 8px 0 0 8px;
+    }
+
+    &.right-page {
+      right: 0;
+      transform-origin: left center;
+      transform: translateZ(10px);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .page-content {
+      padding: 30px 25px;
+      height: 100%;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--sql-primary) transparent;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--sql-primary);
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .page-separator {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--sql-border) 20%,
+      var(--sql-border) 80%,
+      transparent 100%
+    );
+    transform: translateX(-50%) translateZ(15px);
+  }
+}
+
+/* === Seiten-Inhalt Styling === */
+.cover-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #333;
+
+  h1 {
+    font-family: "Orbitron", monospace;
+    font-size: 28px;
+    color: var(--sql-primary);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 16px;
+    color: var(--sql-secondary);
+    margin-bottom: 20px;
+  }
+
+  .author,
+  .version {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+}
+
+/* === Inhaltsverzeichnis === */
+.toc-page {
+  h2 {
+    font-family: "Orbitron", monospace;
+    font-size: 24px;
+    color: var(--sql-primary);
+    text-shadow: 0 0 10px currentColor;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .toc-entries {
+    margin-bottom: 30px;
+
+    .toc-entry {
+      display: flex;
+      align-items: center;
+      padding: 12px 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin-bottom: 8px;
+
+      &:hover {
+        background: var(--sql-hover);
+        transform: translateX(5px);
+        box-shadow: 0 4px 12px rgba(46, 134, 171, 0.2);
+      }
+
+      .chapter-icon {
+        font-size: 20px;
+        margin-right: 15px;
+        filter: drop-shadow(0 0 5px currentColor);
+      }
+
+      .chapter-title {
+        flex: 1;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .toc-dots {
+        flex: 1;
+        height: 1px;
+        background: repeating-linear-gradient(
+          to right,
+          transparent 0px,
+          transparent 3px,
+          var(--sql-border) 3px,
+          var(--sql-border) 6px
+        );
+        margin: 0 10px;
+      }
+
+      .chapter-page {
+        font-family: "Orbitron", monospace;
+        font-weight: 600;
+        color: var(--sql-primary);
+        min-width: 30px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+/* === Content Pages === */
+.content-page {
+  h2 {
+    font-family: "Orbitron", monospace;
+    font-size: 20px;
+    color: var(--sql-primary);
+    text-shadow: 0 0 8px currentColor;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--sql-border);
+    padding-bottom: 8px;
+  }
+
+  .content-section {
+    margin-bottom: 25px;
+
+    h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--sql-secondary);
+      margin-bottom: 12px;
+    }
+
+    .code-block {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border: 2px solid var(--sql-border);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      overflow-x: auto;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--sql-glow);
+
+      code {
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #e0e0e0;
+        white-space: pre;
+
+        /* SQL Syntax Highlighting */
+        .sql-keyword {
+          color: var(--sql-primary);
+          font-weight: 600;
+        }
+        .sql-string {
+          color: var(--sql-accent);
+        }
+        .sql-number {
+          color: var(--sql-success);
+        }
+        .sql-comment {
+          color: #888;
+          font-style: italic;
+        }
+      }
+    }
+
+    .explanation {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+      background: var(--sql-bg);
+      padding: 12px 15px;
+      border-left: 4px solid var(--sql-primary);
+      border-radius: 0 6px 6px 0;
+      margin-top: 10px;
+    }
+  }
+
+  .page-number {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-family: "Orbitron", monospace;
+    font-size: 12px;
+    color: var(--sql-primary);
+    text-shadow: 0 0 5px currentColor;
+  }
+}
+
+/* === Benutzer Content Sections === */
+.user-content-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--sql-border);
+
+  .user-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h3 {
+      font-family: "Orbitron", monospace;
+      font-size: 16px;
+      color: var(--sql-secondary);
+      text-shadow: 0 0 8px currentColor;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+
+      .add-entry-btn,
+      .delete-all-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      .add-entry-btn {
+        background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+        color: white;
+
+        &:hover {
+          box-shadow: 0 4px 12px var(--sql-glow);
+        }
+      }
+
+      .delete-all-btn {
+        background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+        color: white;
+
+        &:hover {
+          box-shadow: 0 4px 12px rgba(199, 62, 29, 0.5);
+        }
+      }
+    }
+  }
+
+  .empty-entries-state {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+    background: var(--sql-bg);
+    border: 2px dashed var(--sql-border);
+    border-radius: 8px;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .user-entry {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--sql-border);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(46, 134, 171, 0.2);
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: var(--sql-bg);
+      border-bottom: 1px solid var(--sql-border);
+
+      h4 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+      }
+
+      .entry-actions {
+        display: flex;
+        gap: 8px;
+
+        .edit-btn,
+        .delete-btn {
+          padding: 4px 8px;
+          font-size: 12px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+          background: var(--sql-primary);
+          color: white;
+
+          &:hover {
+            background: #1a5f7a;
+          }
+        }
+
+        .delete-btn {
+          background: var(--sql-success);
+          color: white;
+
+          &:hover {
+            background: #a12e1c;
+          }
+        }
+      }
+    }
+
+    .entry-content {
+      padding: 15px;
+
+      .user-code-block {
+        background: #1a1a1a;
+        border: 1px solid var(--sql-border);
+        border-radius: 6px;
+        padding: 12px;
+        overflow-x: auto;
+
+        code {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 12px;
+          color: #e0e0e0;
+          line-height: 1.5;
+        }
+      }
+
+      .user-text-content {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #444;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .entry-meta {
+      padding: 8px 15px;
+      background: rgba(46, 134, 171, 0.05);
+      border-top: 1px solid var(--sql-border);
+      font-size: 12px;
+      color: #666;
+    }
+  }
+}
+
+/* === TOC User Entries === */
+.user-toc-entry {
+  background: linear-gradient(
+    135deg,
+    var(--sql-bg) 0%,
+    rgba(162, 59, 114, 0.05) 100%
+  );
+  border: 1px solid var(--sql-border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      var(--sql-hover) 0%,
+      rgba(162, 59, 114, 0.1) 100%
+    );
+    border-color: var(--sql-primary);
+    box-shadow: 0 4px 15px var(--sql-glow);
+    transform: translateY(-2px);
+  }
+
+  .entry-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+
+    .clickable-entry {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      cursor: pointer;
+      padding-right: 15px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        .entry-icon {
+          transform: scale(1.1) rotate(5deg);
+          filter: brightness(1.3);
+        }
+
+        .click-hint {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .entry-icon {
+        font-size: 24px;
+        margin-right: 15px;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        background: linear-gradient(
+          135deg,
+          var(--sql-primary) 0%,
+          var(--sql-secondary) 100%
+        );
+        color: white;
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .entry-info {
+        flex: 1;
+        position: relative;
+
+        h4 {
+          color: var(--sql-primary);
+          margin: 0 0 5px 0;
+          font-size: 18px;
+          font-weight: 700;
+          font-family: "Rajdhani", sans-serif;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        small {
+          color: #aaa;
+          font-size: 12px;
+          font-weight: 500;
+        }
+
+        .click-hint {
+          position: absolute;
+          top: -8px;
+          right: -5px;
+          background: linear-gradient(
+            135deg,
+            var(--sql-accent) 0%,
+            #ff6b35 100%
+          );
+          color: white;
+          padding: 4px 10px;
+          border-radius: 15px;
+          font-size: 10px;
+          font-weight: bold;
+          opacity: 0;
+          transform: translateX(15px);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          pointer-events: none;
+          white-space: nowrap;
+          box-shadow: 0 2px 8px rgba(241, 143, 1, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: var(--sql-accent);
+          }
+        }
+      }
+    }
+
+    .entry-actions {
+      display: flex;
+      gap: 8px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      button {
+        background: rgba(46, 134, 171, 0.1);
+        border: 1px solid var(--sql-border);
+        color: #ccc;
+        padding: 8px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        font-weight: 600;
+        min-width: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          transform: scale(1.1) translateY(-2px);
+          box-shadow: 0 4px 12px rgba(46, 134, 171, 0.3);
+        }
+
+        &.edit-btn {
+          &:hover {
+            background: linear-gradient(
+              135deg,
+              var(--sql-accent) 0%,
+              #ff6b35 100%
+            );
+            border-color: var(--sql-accent);
+            color: white;
+            box-shadow: 0 4px 12px rgba(241, 143, 1, 0.4);
+          }
+        }
+
+        &.delete-btn {
+          &:hover {
+            background: linear-gradient(
+              135deg,
+              var(--sql-success) 0%,
+              #ff4757 100%
+            );
+            border-color: var(--sql-success);
+            color: white;
+            box-shadow: 0 4px 12px rgba(199, 62, 29, 0.4);
+          }
+        }
+      }
+    }
+  }
+
+  .entry-preview-short {
+    padding: 10px 15px;
+    border-top: 1px solid var(--sql-border);
+    font-size: 12px;
+    color: #555;
+    background: rgba(255, 255, 255, 0.05);
+
+    p {
+      margin: 0 0 5px 0;
+      line-height: 1.4;
+    }
+
+    small {
+      color: #888;
+      font-style: italic;
+    }
+  }
+}
+
+/* === User Content Pages === */
+.user-content-page {
+  .page-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--sql-border);
+
+    h2 {
+      font-family: "Orbitron", monospace;
+      font-size: 20px;
+      color: var(--sql-primary);
+      text-shadow: 0 0 8px currentColor;
+      margin: 0 0 8px 0;
+    }
+
+    .page-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: #666;
+
+      .creation-date {
+        font-weight: 600;
+      }
+
+      .page-type {
+        background: var(--sql-bg);
+        padding: 2px 8px;
+        border-radius: 10px;
+        border: 1px solid var(--sql-border);
+      }
+    }
+  }
+
+  .user-section {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--sql-border);
+    border-radius: 8px;
+    overflow: hidden;
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: var(--sql-bg);
+      border-bottom: 1px solid var(--sql-border);
+
+      h3 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+      }
+
+      .section-actions {
+        display: flex;
+        gap: 8px;
+
+        .edit-section-btn,
+        .delete-section-btn {
+          padding: 4px 8px;
+          font-size: 12px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .edit-section-btn {
+          background: var(--sql-primary);
+          color: white;
+        }
+
+        .delete-section-btn {
+          background: var(--sql-success);
+          color: white;
+        }
+      }
+    }
+
+    .section-content {
+      padding: 15px;
+    }
+  }
+
+  .add-section-area {
+    text-align: center;
+    margin: 30px 0;
+
+    .add-section-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px var(--sql-glow);
+      }
+    }
+  }
+
+  .navigation-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--sql-border);
+
+    .back-to-toc-btn {
+      padding: 10px 20px;
+      background: var(--sql-secondary);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(162, 59, 114, 0.5);
+      }
+    }
+  }
+}
+
+/* === Navigation & Controls === */
+.book-navigation {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--sql-border);
+  border-radius: 30px;
+  padding: 12px 20px;
+  box-shadow: 0 0 30px var(--sql-glow);
+  z-index: 100;
+
+  .nav-btn {
+    padding: 10px 16px;
+    background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px var(--sql-glow);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .page-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--sql-primary);
+    font-family: "Orbitron", monospace;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 0 8px currentColor;
+
+    .bookmark-indicator {
+      font-size: 16px;
+      animation: bookmarkPulse 2s ease-in-out infinite;
+    }
+  }
+}
+
+.book-actions {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 100;
+
+  .action-btn {
+    padding: 10px 16px;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &.toc-btn {
+      background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px var(--sql-glow);
+      }
+    }
+
+    &.note-btn {
+      background: linear-gradient(135deg, var(--sql-secondary), #7a2d5a);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(162, 59, 114, 0.5);
+      }
+    }
+
+    &.bookmark-btn {
+      background: linear-gradient(135deg, var(--sql-accent), #d17801);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(241, 143, 1, 0.5);
+      }
+    }
+
+    &.close-btn {
+      background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(199, 62, 29, 0.5);
+      }
+    }
+
+    &.global-reset-btn {
+      background: linear-gradient(135deg, #ff6b35, #d84315);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(255, 107, 53, 0.5);
+      }
+    }
+  }
+} /* === Keyboard Help === */
+.keyboard-help {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  background: rgba(15, 15, 15, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--sql-border);
+  border-radius: 12px;
+  padding: 15px;
+  z-index: 100;
+
+  .help-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+      color: var(--sql-primary);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      text-shadow: 0 0 5px currentColor;
+    }
+  }
+}
+
+/* === Modals === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+  border: 3px solid var(--sql-border);
+  border-radius: 15px;
+  box-shadow: 0 0 40px var(--sql-glow), inset 0 0 20px rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  position: relative;
+
+  &.delete-modal {
+    max-width: 400px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    background: var(--sql-bg);
+    border-bottom: 2px solid var(--sql-border);
+
+    h3 {
+      font-family: "Orbitron", monospace;
+      font-size: 18px;
+      color: var(--sql-primary);
+      text-shadow: 0 0 8px currentColor;
+      margin: 0;
+    }
+
+    .modal-close-btn {
+      background: var(--sql-success);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(199, 62, 29, 0.5);
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+
+    .form-group {
+      margin-bottom: 20px;
+
+      label {
+        display: block;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid var(--sql-border);
+        border-radius: 8px;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--sql-primary);
+          box-shadow: 0 0 10px var(--sql-glow);
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        font-family: "JetBrains Mono", monospace;
+        transition: all 0.3s ease;
+
+        &.code-textarea {
+          font-family: "JetBrains Mono", monospace;
+          background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+          color: #e0e0e0;
+          border: 2px solid var(--sql-border);
+          font-size: 13px;
+          line-height: 1.6;
+
+          &:focus {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            box-shadow: 0 0 15px var(--sql-glow);
+          }
+        }
+
+        &.text-textarea {
+          background: linear-gradient(135deg, #ffffff, #f8f8f8);
+          color: #333;
+          border: 2px solid var(--sql-border);
+          font-family: "Rajdhani", sans-serif;
+          font-size: 14px;
+          line-height: 1.7;
+
+          &:focus {
+            background: linear-gradient(135deg, #ffffff, #f8f8f8);
+            box-shadow: 0 0 10px rgba(46, 134, 171, 0.3);
+          }
+        }
+
+        &:focus {
+          outline: none;
+          border-color: var(--sql-primary);
+        }
+      }
+    }
+
+    .template-buttons {
+      margin: 20px 0;
+
+      h4 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 16px;
+        color: var(--sql-secondary);
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .template-section {
+        margin-bottom: 20px;
+
+        h5 {
+          font-family: "Orbitron", monospace;
+          font-size: 14px;
+          color: var(--sql-primary);
+          margin-bottom: 10px;
+          text-align: center;
+          text-shadow: 0 0 5px currentColor;
+        }
+
+        .template-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 10px;
+          margin-bottom: 15px;
+
+          .template-btn {
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            font-family: "Rajdhani", sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            &.sql-template {
+              background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+              color: white;
+            }
+
+            &.ddl-template {
+              background: linear-gradient(
+                135deg,
+                var(--sql-secondary),
+                #7a2d5a
+              );
+              color: white;
+            }
+
+            &.dml-template {
+              background: linear-gradient(135deg, var(--sql-accent), #d17801);
+              color: white;
+            }
+
+            &.procedure-template {
+              background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+              color: white;
+            }
+
+            &.join-template {
+              background: linear-gradient(135deg, #4a90e2, #357abd);
+              color: white;
+            }
+
+            &.subquery-template {
+              background: linear-gradient(135deg, #7b68ee, #6a5acd);
+              color: white;
+            }
+
+            &.window-template {
+              background: linear-gradient(135deg, #20b2aa, #008b8b);
+              color: white;
+            }
+
+            &.cte-template {
+              background: linear-gradient(135deg, #ff7f50, #ff6347);
+              color: white;
+            }
+          }
+        }
+      }
+
+      .code-tools {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 2px solid var(--sql-border);
+
+        .tool-btn {
+          padding: 8px 16px;
+          border: 2px solid var(--sql-border);
+          border-radius: 20px;
+          background: transparent;
+          color: var(--sql-primary);
+          font-family: "Rajdhani", sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover:not(:disabled) {
+            background: var(--sql-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 134, 171, 0.2);
+          }
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+
+          &.format-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+            color: white;
+            border-color: var(--sql-primary);
+          }
+
+          &.clear-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+            color: white;
+            border-color: var(--sql-success);
+          }
+        }
+      }
+    }
+    .entry-preview {
+      margin-top: 20px;
+      border: 2px solid var(--sql-border);
+      border-radius: 8px;
+      overflow: hidden;
+
+      h4 {
+        background: var(--sql-bg);
+        padding: 12px 15px;
+        margin: 0;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        color: var(--sql-primary);
+        border-bottom: 1px solid var(--sql-border);
+      }
+
+      .user-entry {
+        border: none;
+        margin: 0;
+
+        .entry-header h4 {
+          background: transparent;
+          border: none;
+          padding: 12px 15px;
+        }
+      }
+
+      .preview-code {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        padding: 15px;
+        margin: 0;
+
+        code {
+          font-family: "JetBrains Mono", monospace;
+          font-size: 12px;
+          line-height: 1.5;
+        }
+      }
+
+      .preview-text {
+        padding: 15px;
+
+        p {
+          margin: 0;
+          font-family: "Rajdhani", sans-serif;
+          font-size: 14px;
+          line-height: 1.6;
+          color: #444;
+        }
+      }
+    }
+
+    .warning-text {
+      color: var(--sql-success);
+      font-weight: 600;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    ul {
+      text-align: left;
+      margin: 15px 0;
+      padding-left: 20px;
+
+      li {
+        margin: 8px 0;
+        font-size: 14px;
+        color: #444;
+      }
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 20px 25px;
+    background: rgba(46, 134, 171, 0.05);
+    border-top: 1px solid var(--sql-border);
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+      color: white;
+
+      &:hover:not(:disabled) {
+        box-shadow: 0 6px 15px var(--sql-glow);
+      }
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #666, #444);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+      color: white;
+
+      &:hover {
+        box-shadow: 0 6px 15px rgba(199, 62, 29, 0.5);
+      }
+    }
+  }
+}
+
+/* === Note Editor === */
+.note-editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+
+  .note-editor {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border: 3px solid var(--sql-border);
+    border-radius: 15px;
+    box-shadow: 0 0 40px var(--sql-glow);
+    max-width: 500px;
+    width: 100%;
+    padding: 25px;
+
+    h4 {
+      font-family: "Orbitron", monospace;
+      font-size: 16px;
+      color: var(--sql-primary);
+      text-shadow: 0 0 8px currentColor;
+      margin: 0 0 15px 0;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid var(--sql-border);
+      border-radius: 8px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: var(--sql-primary);
+        box-shadow: 0 0 10px var(--sql-glow);
+      }
+    }
+
+    .editor-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+
+      .save-btn,
+      .cancel-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+
+      .save-btn {
+        background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+        color: white;
+
+        &:hover {
+          box-shadow: 0 6px 15px var(--sql-glow);
+        }
+      }
+
+      .cancel-btn {
+        background: linear-gradient(135deg, var(--sql-success), #a12e1c);
+        color: white;
+
+        &:hover {
+          box-shadow: 0 6px 15px rgba(199, 62, 29, 0.5);
+        }
+      }
+    }
+  }
+}
+
+/* === User Notes Page === */
+.user-notes-page {
+  h2 {
+    font-family: "Orbitron", monospace;
+    font-size: 20px;
+    color: var(--sql-primary);
+    text-shadow: 0 0 8px currentColor;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .notes-container {
+    .existing-notes {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid var(--sql-border);
+      border-radius: 8px;
+      padding: 20px;
+
+      .note-content {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 15px;
+        white-space: pre-wrap;
+      }
+
+      .edit-note-btn {
+        background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px var(--sql-glow);
+        }
+      }
+    }
+
+    .empty-notes {
+      text-align: center;
+      padding: 40px;
+      background: var(--sql-bg);
+      border: 2px dashed var(--sql-border);
+      border-radius: 8px;
+
+      p {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .add-note-btn {
+        background: linear-gradient(135deg, var(--sql-primary), #1a5f7a);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px var(--sql-glow);
+        }
+      }
+    }
+  }
+}
+
+/* === Buch Schatten === */
+.book-shadow {
+  position: absolute;
+  bottom: -40px;
+  left: 20px;
+  right: 20px;
+  height: 20px;
+  background: radial-gradient(
+    ellipse,
+    rgba(46, 134, 171, 0.4) 0%,
+    rgba(46, 134, 171, 0.2) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  transform: translateZ(-10px);
+  transition: all 1s ease;
+}
+
+/* === Animations === */
+@keyframes bookmarkPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .realistic-book {
+    width: 320px;
+    height: 480px;
+  }
+
+  .book-navigation {
+    bottom: 100px;
+    padding: 10px 15px;
+
+    .nav-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .page-info {
+      font-size: 12px;
+    }
+  }
+
+  .book-actions {
+    bottom: 30px;
+
+    .action-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  }
+
+  .keyboard-help {
+    top: 20px;
+    right: 20px;
+
+    .help-items span {
+      font-size: 11px;
+    }
+  }
+
+  .modal-content {
+    margin: 10px;
+
+    .modal-body {
+      padding: 20px;
+
+      .template-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+    }
+  }
+
+  .page .page-content {
+    padding: 20px 15px;
+    font-size: 13px;
+
+    h2 {
+      font-size: 18px;
+    }
+    h3 {
+      font-size: 16px;
+    }
+
+    .code-block code {
+      font-size: 11px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .realistic-book {
+    width: 280px;
+    height: 420px;
+  }
+
+  .book-navigation {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .book-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* === Print Styles === */
+@media print {
+  .realistic-book-container {
+    background: white;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .book-navigation,
+  .book-actions,
+  .keyboard-help,
+  .modal-overlay,
+  .note-editor-overlay {
+    display: none !important;
+  }
+
+  .realistic-book {
+    position: static;
+    transform: none !important;
+    box-shadow: none;
+  }
+
+  .page .page-content {
+    color: #000 !important;
+    background: white !important;
+  }
+}

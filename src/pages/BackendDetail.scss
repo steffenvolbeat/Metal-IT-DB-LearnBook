@@ -1,0 +1,564 @@
+/**
+ * BackendDetail.scss - Backend Detail Seite Styling
+ * Erweiterte Backend-Beispiele mit Metal-Design
+ * Server-grün und Database-blau Farbschema
+ * Autor: Metal-IT-Team
+ */
+
+@import "../styles/main.scss";
+
+// === Backend Detail Color Palette ===
+$backend-server-green: #10b981;
+$backend-server-dark: #059669;
+$backend-database-blue: #3b82f6;
+$backend-database-light: #60a5fa;
+$backend-accent-orange: #f59e0b;
+$backend-gradient: linear-gradient(
+  135deg,
+  $backend-server-green,
+  $backend-database-blue
+);
+
+// === Backend Detail Page ===
+.backend-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 15, 15, 0.95) 0%,
+    rgba(16, 185, 129, 0.03) 25%,
+    rgba(59, 130, 246, 0.03) 50%,
+    rgba(245, 158, 11, 0.03) 75%,
+    rgba(15, 15, 15, 0.95) 100%
+  );
+  font-family: "Rajdhani", sans-serif;
+  padding: 2rem 1rem;
+
+  // === Detail Header ===
+  .detail-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 3rem 2rem;
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+
+      .detail-title {
+        font-family: "Orbitron", monospace;
+        font-size: 3rem;
+        font-weight: 900;
+        background: $backend-gradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        animation: backendDetailShimmer 3s ease-in-out infinite;
+      }
+
+      .detail-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+
+      .back-btn {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        color: $backend-server-green;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+
+        &:hover {
+          background: rgba(16, 185, 129, 0.2);
+          border-color: rgba(16, 185, 129, 0.5);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2);
+        }
+      }
+    }
+  }
+
+  // === Section Navigation ===
+  .section-nav {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+
+    .nav-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 1200px;
+
+      .nav-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.5rem 2rem;
+        background: rgba(15, 15, 15, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        backdrop-filter: blur(10px);
+        min-width: 200px;
+        text-align: center;
+
+        &:hover {
+          transform: translateY(-3px);
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        &.active {
+          background: rgba(16, 185, 129, 0.1);
+          border-color: rgba(16, 185, 129, 0.4);
+          box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+
+          .nav-title {
+            color: $backend-server-green;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+          }
+        }
+
+        .nav-title {
+          font-family: "Orbitron", monospace;
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: white;
+          transition: all 0.3s ease;
+        }
+
+        .nav-description {
+          font-size: 0.9rem;
+          color: rgba(255, 255, 255, 0.7);
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  // === Section Content ===
+  .section-content {
+    max-width: 1400px;
+    margin: 0 auto;
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+
+      .section-title {
+        font-family: "Orbitron", monospace;
+        font-size: 2.5rem;
+        color: $backend-database-blue;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      }
+
+      .section-description {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+
+    .examples-container {
+      display: grid;
+      gap: 3rem;
+
+      .example-card {
+        background: rgba(15, 15, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 2.5rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: $backend-gradient;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+
+          &::before {
+            opacity: 1;
+          }
+        }
+
+        &.completed {
+          border-color: rgba(16, 185, 129, 0.4);
+          background: rgba(16, 185, 129, 0.05);
+
+          &::before {
+            opacity: 1;
+            background: $backend-server-green;
+          }
+
+          .example-header .example-title {
+            color: $backend-server-green;
+          }
+
+          .complete-btn {
+            background: rgba(16, 185, 129, 0.2);
+            color: $backend-server-green;
+            border-color: rgba(16, 185, 129, 0.4);
+          }
+        }
+
+        .example-header {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-bottom: 2rem;
+
+          .example-title {
+            font-family: "Orbitron", monospace;
+            font-size: 1.8rem;
+            color: $backend-database-blue;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+          }
+
+          .example-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+          }
+
+          .complete-btn {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            color: white;
+            font-family: "Rajdhani", sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+              border-color: rgba(255, 255, 255, 0.3);
+              transform: translateY(-2px);
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+
+        .example-code {
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+          // Override MetalCodeBlock styling for backend theme
+          :global(.metal-code-block) {
+            background: transparent !important;
+            border: none !important;
+
+            pre {
+              background: transparent !important;
+              margin: 0 !important;
+
+              &::-webkit-scrollbar-thumb {
+                background: $backend-gradient !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // === Detail Footer ===
+  .detail-footer {
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    text-align: center;
+    backdrop-filter: blur(15px);
+
+    .progress-summary {
+      max-width: 800px;
+      margin: 0 auto;
+
+      h3 {
+        font-family: "Orbitron", monospace;
+        font-size: 2rem;
+        color: $backend-accent-orange;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+      }
+
+      .progress-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+
+        .stat {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 1.5rem;
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          backdrop-filter: blur(5px);
+
+          .stat-number {
+            font-family: "Orbitron", monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: $backend-server-green;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+          }
+
+          .stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+
+        .progress-fill {
+          height: 100%;
+          background: $backend-gradient;
+          border-radius: 6px;
+          transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+          position: relative;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.2),
+              transparent
+            );
+            animation: progressShimmer 2s infinite;
+          }
+        }
+      }
+    }
+  }
+
+  // === Animations ===
+  @keyframes backendDetailShimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  @keyframes progressShimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  // === Responsive Design ===
+  @media (max-width: 1024px) {
+    padding: 1.5rem 1rem;
+
+    .detail-header {
+      padding: 2rem 1.5rem;
+      margin-bottom: 2rem;
+
+      .detail-title {
+        font-size: 2.5rem;
+      }
+
+      .detail-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .section-nav .nav-container {
+      justify-content: center;
+
+      .nav-btn {
+        min-width: 180px;
+        padding: 1.2rem 1.5rem;
+      }
+    }
+
+    .examples-container {
+      gap: 2rem;
+
+      .example-card {
+        padding: 2rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 0.5rem;
+
+    .detail-header {
+      padding: 1.5rem 1rem;
+
+      .detail-title {
+        font-size: 2rem;
+      }
+
+      .detail-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .section-nav .nav-container {
+      flex-direction: column;
+      align-items: center;
+
+      .nav-btn {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+    .section-content .section-header .section-title {
+      font-size: 2rem;
+    }
+
+    .examples-container {
+      gap: 1.5rem;
+
+      .example-card {
+        padding: 1.5rem;
+
+        .example-header {
+          .example-title {
+            font-size: 1.4rem;
+          }
+
+          .example-description {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .progress-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      .stat {
+        padding: 1rem;
+
+        .stat-number {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .detail-header .detail-title {
+      font-size: 1.8rem;
+    }
+
+    .section-content .section-header .section-title {
+      font-size: 1.6rem;
+    }
+
+    .examples-container .example-card {
+      padding: 1rem;
+      margin: 0 -0.5rem;
+    }
+  }
+}
+
+// === Dark Theme Enhancements ===
+.backend-detail-page {
+  // Custom Scrollbar
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(15, 15, 15, 0.3);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $backend-gradient;
+    border-radius: 5px;
+
+    &:hover {
+      background: linear-gradient(
+        135deg,
+        darken($backend-server-green, 10%),
+        darken($backend-database-blue, 10%)
+      );
+    }
+  }
+
+  // Selection Styling
+  ::selection {
+    background: rgba(16, 185, 129, 0.3);
+    color: white;
+  }
+
+  ::-moz-selection {
+    background: rgba(16, 185, 129, 0.3);
+    color: white;
+  }
+}
